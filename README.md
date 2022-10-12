@@ -30,7 +30,7 @@ University Admit Eligibility Predictor
        </tr>
       <tr>
         <td>4</td>
-        <td>HARIHARAN N S</td>
+        <td>HARIHARAN N</td>
         <td>211519205055</td>
       </tr>
     </tbody>
