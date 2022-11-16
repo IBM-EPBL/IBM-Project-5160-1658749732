@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <SCRIPT language=Javascript>
+    
+    function check(e, value) {
+      //Check Charater
+      var unicode = e.charCode ? e.charCode : e.keyCode;
+      if (value.indexOf(".") != -1)
+        if (unicode == 46) return false;
+      if (unicode != 8)
+        if ((unicode < 48 || unicode > 57) && unicode != 46) return false;
+    }
+   
+  </SCRIPT>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+.container {
+  position: relative;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px 0 30px 0;
+} 
+
+
+input,
+.btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 4px;
+  margin: 5px 0;
+  opacity: 0.85;
+  display: inline-block;
+  font-size: 17px;
+  line-height: 20px;
+  text-decoration: none; 
+}
+
+input:hover,
+.btn:hover {
+  opacity: 1;
+}
+
+
+
+input[type=submit] {
+  background-color: #704caf;
+  color: white;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #704caf;
+}
+
+
+.col {
+  float: left;
+  width: 50%;
+  margin: auto;
+  padding: 0 50px;
+  margin-top: 6px;
+}
+
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+.vl {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  border: 2px solid #ddd;
+  height: 490px;
+}
+
+
+.vl-innertext {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  padding: 8px 10px;
+}
+
+
+.hide-md-lg {
+  display: none;
+}
+
+
+.bottom-container {
+  text-align: center;
+  background-color: #666;
+  border-radius: 0px 0px 4px 4px;
+}
+
+
+@media screen and (max-width: 650px) {
+  .col {
+    width: 100%;
+    margin-top: 0;
+  }
+
+  .vl {
+    display: none;
+  }
+
+  .hide-md-lg {
+    display: block;
+    text-align: center;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <form action="{{url_for('predict')}}" method="post">
+    <div class="row">
+      <marquee class="bottom-container"><h2>Graduate Admission Prediction</h2></marquee>
+      <div class="vl">
+        <span class="vl-innertext"></span>
+      </div>
+
+      <div class="col">
+	  <p><b>In this project, I build a linear regression model to predict the chance of admission into a particular university based on studetent's profile.</p></b>
+	  <h3>Instructions for Input Features</h3>
+      <ul>
+			<li>GRE Score (out of 340)</li>
+			<li>TOEFL Score (out of 120)</li>
+			<li>University Rating (out of 5)</li>
+			<li>Statment of Purpose {SOP} (out of 5)</li>
+			<li>Letter of Recommendation {LOP} Strength (out of 5)</li>
+			<li>Undergraduate CGPA (out of 10)</li>
+			<li>Research Experience (Either 0 or 1)</li>
+	   
+	  </ul>
+      </div>
+
+      <div class="col">
+        <div class="hide-md-lg">
+        </div>
+
+			<input type="number" name="GRE Score" placeholder="GRE Score" required="required" min="0" max="340"/>
+			<input type="number" name="TOEFL Score" placeholder="TOEFL Score" required="required" min="0" max="120"/>
+			<input type="number" name="University Rating" placeholder="University Rating" required="required" min="1" max="5"/>
+			<input type="number" name="SOP" placeholder="SOP" required="required" onkeypress="return check(event,value)" step="0.1" min="1" max="5"/>
+			<input type="number" name="LOR" placeholder="LOR" required="required" onkeypress="return check(event,value)" step="0.1" min="1" max="5"/>
+			<input type="number" name="CGPA" placeholder="CGPA" required="required" onkeypress="return check(event,value)" step="0.01" min="1" max="10"/>
+			<input type="number" name="Research" placeholder="Research" required="required" min="0" max="1"/>
+			
+			<input type="submit" value="Predict"></input>
+			
+			<h4 style="text-align: center;">{{prediction_text}}</h4>
+      </div>
+      
+    </div>
+  </form>
+  
+</div>
+
+
+
+</body>
+</html>
